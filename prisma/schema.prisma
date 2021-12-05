@@ -6,6 +6,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
 //  previewFeatures = ["referentialActions"] // You won't need this in Prisma 3.X or higher.
 }
 
@@ -46,6 +47,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  transactions  Transaction[]
+  availableCrypto  AvailableCrypto[]
 }
 
 model VerificationToken {
@@ -54,4 +57,25 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Transaction {
+    id                      String      @id @default(cuid())
+    createdAt               DateTime    @default(now())
+    purchasedCryptoId       String
+    purchasedCryptoSymbol   String
+    purchasedDate           DateTime
+    purchasedPrice          Float
+    quantity                Float
+    user                    User?       @relation(fields: [userId], references: [id])
+    userId                  String?
+}
+
+model AvailableCrypto {
+    id                      String      @id @default(cuid())
+    createdAt               DateTime    @default(now())
+    purchasedCryptoId       String
+    purchasedCryptoSymbol   String
+    user                    User?       @relation(fields: [userId], references: [id])
+    userId                  String?
 }
