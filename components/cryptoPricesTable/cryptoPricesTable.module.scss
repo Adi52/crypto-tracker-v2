@@ -1,0 +1,29 @@
+@import 'styles/main';
+
+.tableWrapper {
+  width: $max-width-l;
+  background: $section-background;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  padding: $inner-section-padding;
+
+
+  .firstColWrapper {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 15px;
+    }
+    p {
+      text-transform: uppercase;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+    }
+  }
+}
+
+

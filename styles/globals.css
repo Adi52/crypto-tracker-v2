@@ -1,0 +1,45 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.MuiInputBase-input {
+  color: white !important;
+}
+
+.MuiFormControl-root,
+.MuiAutocomplete-root {
+  width: 100%;
+}
+
+.MuiPaper-root {
+  background-color: transparent !important;
+}
+
+.MuiTableCell-root {
+  border: none !important;
+}
+
+.MuiPaper-rounded {
+  border-radius: 10px !important;
+}
+
+.MuiPickersModal-dialogRoot {
+  background-color: white !important;
+}
+
+.MuiAutocomplete-popper {
+  background-color: white !important;
+}

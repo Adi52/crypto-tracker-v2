@@ -1,0 +1,20 @@
+@import "main";
+
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  background: $background;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  .buttonsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: $max-width-l;
+    margin-top: $section-spacing;
+  }
+}

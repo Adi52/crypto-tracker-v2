@@ -1,0 +1,25 @@
+@import 'styles/main';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 25px;
+  cursor: pointer;
+
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  p {
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+}

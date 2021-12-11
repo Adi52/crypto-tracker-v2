@@ -1,0 +1,13 @@
+@import 'styles/main';
+
+.container {
+  width: $max-width-l;
+  background: $section-background;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  margin: $section-spacing/2 0 $section-spacing 0;
+  padding: $inner-section-padding;
+}
