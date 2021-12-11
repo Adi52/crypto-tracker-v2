@@ -12,7 +12,7 @@ import {
 } from "@material-ui/pickers";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { createFilterOptions } from "@material-ui/lab/Autocomplete";
-// import {API_TRANSACTIONS, COINS_LIST_ROUTE} from "../../utils/constants/routers";
+import { COINS_LIST_ROUTE } from "../../utils/constants/routers";
 import CtaButton from "../buttons/ctaButton/ctaButton";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const filterOptions = createFilterOptions({
   limit: 100,
-  matchFrom: "start",
+  // matchFrom: "start",
 });
 
 const parseToNumber = (text) => {
@@ -45,7 +45,6 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
   const getCryptoList = async () => {
     const response = await fetch(COINS_LIST_ROUTE);
     const resJson = await response.json();
-    // const list = resJson.map((item) => item.symbol.toUpperCase());
     setCryptoList(resJson);
   };
 
@@ -60,14 +59,12 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
   const postNewTransaction = async () => {
     setIsSubmitting(true);
     try {
-      await axios.post(API_TRANSACTIONS, {
-        userId: profileId,
+      await axios.post("/api/transaction/add", {
         purchasedCryptoId: purchasedCrypto.id,
         purchasedCryptoSymbol: purchasedCrypto.symbol,
         purchasedPrice: parseToNumber(purchasedPrice),
         quantity: parseToNumber(quantity),
         purchasedDate,
-        createdAt: new Date(),
       });
       clearForm();
       setIsOpen(false);
@@ -107,9 +104,9 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  // useEffect(() => {
-  //   getCryptoList();
-  // }, []);
+  useEffect(() => {
+    getCryptoList();
+  }, []);
 
   return (
     <Modal
@@ -127,11 +124,14 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
         )}
         <div className={scssStyles.fullWidth}>
           <Autocomplete
+            style={{ width: "100%" }}
             // value={purchasedCrypto}
             onChange={(_, newValue) => setPurchasedCrypto(newValue)}
             options={cryptoList}
             filterOptions={filterOptions}
-            getOptionLabel={(option) => option.symbol.toUpperCase()}
+            getOptionLabel={(option) =>
+              `${option.symbol.toUpperCase()} - ${option.name}`.substr(0, 45)
+            }
             id="clear-on-escape"
             clearOnEscape
             renderInput={(params) => (
@@ -167,6 +167,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
         <div className={scssStyles.fullWidth}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
+              style={{ width: "100%" }}
               margin="normal"
               id="date-picker-dialog"
               label="Kiedy"
