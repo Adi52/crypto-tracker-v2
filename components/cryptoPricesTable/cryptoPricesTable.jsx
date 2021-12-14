@@ -87,7 +87,6 @@ const CryptoPricesTable = ({ availableCrypto }) => {
         item.quantity
       )
     );
-    console.log(rows);
     setTableRows(rows);
   };
 

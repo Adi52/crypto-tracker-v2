@@ -24,6 +24,12 @@
       h1 {
         font-family: 'Montserrat', sans-serif;
         color: white;
+        font-size: 25px;
+        font-weight: bold;
+
+        @media (max-width: 600px) {
+          font-size: 18px;
+        }
       }
     }
 
