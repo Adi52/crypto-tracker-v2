@@ -13,7 +13,8 @@ import {
   TableRow,
   withStyles,
 } from "@material-ui/core";
-// import {numberWithSpaces} from "../../utils/functions/numberWithSpaces";
+import { COIN_INFO_ROUTE } from "../../utils/constants/routers";
+import { numberWithSpaces } from "../../utils/functions/numberWithSpaces";
 
 function createData(
   image,
@@ -57,7 +58,7 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const CryptoPricesTable = ({ transactions }) => {
+const CryptoPricesTable = ({ availableCrypto }) => {
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [tableRows, setTableRows] = useState([]);
 
@@ -80,24 +81,23 @@ const CryptoPricesTable = ({ transactions }) => {
     setTableRows(rows);
   };
 
-  const getCryptoDataArr = async (filteredDuplicatesCryptoIdArr) => {
+  const getCryptoDataArr = async (cryptoIdsArr) => {
     const cryptoDataArr = await Promise.all(
-      filteredDuplicatesCryptoIdArr.map((cryptoId) => getCryptoData(cryptoId))
+      cryptoIdsArr.map((cryptoId) => getCryptoData(cryptoId))
     );
     createRows(cryptoDataArr);
     setIsDataLoading(false);
   };
 
-  // useEffect(() => {
-  //   if (transactions.length > 0) {
-  //     setIsDataLoading(true);
-  //     const cryptoIdsArr = transactions.map(
-  //       (transaction) => transaction.purchasedCryptoId
-  //     );
-  //     const filteredDuplicatesCryptoIdArr = [...new Set(cryptoIdsArr)];
-  //     getCryptoDataArr(filteredDuplicatesCryptoIdArr);
-  //   }
-  // }, [transactions]);
+  useEffect(() => {
+    if (availableCrypto.length > 0) {
+      setIsDataLoading(true);
+      const cryptoIdsArr = availableCrypto.map(
+        (crypto) => crypto.purchasedCryptoId
+      );
+      getCryptoDataArr(cryptoIdsArr);
+    }
+  }, [availableCrypto]);
 
   if (isDataLoading) {
     return <CircularProgress color="primary" />;
