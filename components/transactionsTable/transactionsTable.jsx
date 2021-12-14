@@ -59,12 +59,12 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const TransactionsTable = ({ profileInfo, transactionsArr, isLoading }) => {
+const TransactionsTable = ({ transactionsArr }) => {
   const [tableRows, setTableRows] = useState([]);
   moment.locale("pl");
 
   const createRows = (transactions) => {
-    const rows = transactions.map((item) =>
+    const rows = transactions?.map((item) =>
       createData(
         item.purchasedCryptoSymbol,
         item.purchasedPrice,
@@ -75,22 +75,9 @@ const TransactionsTable = ({ profileInfo, transactionsArr, isLoading }) => {
     setTableRows(rows);
   };
 
-  const filterTransactions = () => {
-    const filteredTransactions = transactionsArr.filter(
-      (transaction) => transaction.userId === profileInfo.id
-    );
-    createRows(filteredTransactions);
-  };
-
   useEffect(() => {
-    if (transactionsArr) {
-      filterTransactions();
-    }
+    createRows(transactionsArr);
   }, [transactionsArr]);
-
-  if (isLoading) {
-    return <CircularProgress color="primary" />;
-  }
 
   return (
     <section className={styles.tableWrapper}>
@@ -115,7 +102,9 @@ const TransactionsTable = ({ profileInfo, transactionsArr, isLoading }) => {
                   {numberWithSpaces(row.purchasedPrice)} $
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.quantity}</StyledTableCell>
-                <StyledTableCell align="right">{row.allCost} $</StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.allCost.toFixed(1)} $
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   {moment(row.purchasedDate).format("DD/MM/YYYY")}
                 </StyledTableCell>

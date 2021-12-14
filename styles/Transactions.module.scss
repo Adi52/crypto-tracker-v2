@@ -1,8 +1,7 @@
 @import "main";
 
 .container {
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
   background: $background;
   display: flex;
   flex-direction: column;
@@ -14,7 +13,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: $max-width-l;
+    max-width: $max-width-l;
+    width: 95%;
     margin-top: $section-spacing;
   }
 }
