@@ -10,6 +10,11 @@
   padding: 30px;
   border-radius: $border-radius;
 
+ @media (max-width: 600px) {
+   margin-bottom: 20px;
+   width: 100%;
+ }
+
   .content {
     width: 100%;
     display: flex;

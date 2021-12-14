@@ -1,6 +1,9 @@
 const Layout = ({ children }) => {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-700">
+    <main
+      className="flex flex-col items-center min-h-screen bg-gray-700"
+      style={{ backgroundColor: "#212121" }}
+    >
       {children}
     </main>
   );

@@ -1,7 +1,8 @@
 @import 'styles/main';
 
 .container {
-  width: $max-width-l;
+  max-width: $max-width-l;
+  width: 95%;
   background: $section-background;
   display: flex;
   flex-direction: row;
@@ -10,4 +11,5 @@
   border-radius: $border-radius;
   margin: $section-spacing/2 0 $section-spacing 0;
   padding: $inner-section-padding;
+  flex-wrap: wrap;
 }

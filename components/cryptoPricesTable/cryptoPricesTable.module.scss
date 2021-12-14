@@ -1,7 +1,8 @@
 @import 'styles/main';
 
 .tableWrapper {
-  width: $max-width-l;
+  width: 100%;
+  max-width: $max-width-l;
   background: $section-background;
   display: flex;
   flex-direction: row;
