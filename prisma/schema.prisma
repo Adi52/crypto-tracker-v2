@@ -38,15 +38,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  transactions  Transaction[]
-  availableCrypto  AvailableCrypto[]
+  id                    String              @id @default(cuid())
+  name                  String?
+  email                 String?             @unique
+  emailVerified         DateTime?
+  image                 String?
+  accounts              Account[]
+  sessions              Session[]
+  transactions          Transaction[]
+  availableCrypto       AvailableCrypto[]
+  moneyInvested         Float               @default(0)
 }
 
 model VerificationToken {
@@ -76,4 +77,5 @@ model AvailableCrypto {
     purchasedCryptoSymbol   String
     user                    User?       @relation(fields: [userId], references: [id])
     userId                  String?
+    quantity                Float       @default(0)
 }

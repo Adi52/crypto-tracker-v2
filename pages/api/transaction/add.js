@@ -22,6 +22,32 @@ export default async (req, res) => {
     const purchasedDate = req.body.purchasedDate;
 
     try {
+      const availableCrypto = await prisma.availableCrypto.findFirst({
+        where: {
+          purchasedCryptoId,
+        },
+      });
+
+      if (availableCrypto) {
+        await prisma.availableCrypto.update({
+          where: {
+            id: availableCrypto.id,
+          },
+          data: {
+            quantity: availableCrypto.quantity + quantity,
+          },
+        });
+      } else {
+        await prisma.availableCrypto.create({
+          data: {
+            purchasedCryptoId: purchasedCryptoId,
+            purchasedCryptoSymbol: purchasedCryptoSymbol,
+            userId: foundUser.id,
+            quantity: quantity,
+          },
+        });
+      }
+
       const transaction = await prisma.transaction.create({
         data: {
           userId: foundUser?.id,
@@ -30,6 +56,16 @@ export default async (req, res) => {
           purchasedDate,
           purchasedPrice,
           quantity,
+        },
+      });
+
+      await prisma.user.update({
+        where: {
+          id: foundUser.id,
+        },
+        data: {
+          moneyInvested: (foundUser.moneyInvested +=
+            +purchasedPrice * +quantity),
         },
       });
 
