@@ -22,13 +22,21 @@ function createData(
   name,
   currentPrice,
   priceChange24h,
-  priceChange7d
+  priceChange7d,
+  quantity
 ) {
   const firstCol = {
     image,
     symbol,
   };
-  return { firstCol, name, currentPrice, priceChange24h, priceChange7d };
+  return {
+    firstCol,
+    name,
+    currentPrice,
+    priceChange24h,
+    priceChange7d,
+    quantity,
+  };
 }
 
 const StyledTableCell = withStyles((theme) => ({
@@ -75,26 +83,34 @@ const CryptoPricesTable = ({ availableCrypto }) => {
         item.name,
         item.market_data.current_price.usd,
         item.market_data.price_change_percentage_24h,
-        item.market_data.price_change_percentage_7d
+        item.market_data.price_change_percentage_7d,
+        item.quantity
       )
     );
+    console.log(rows);
     setTableRows(rows);
   };
 
   const getCryptoDataArr = async (cryptoIdsArr) => {
     const cryptoDataArr = await Promise.all(
-      cryptoIdsArr.map((cryptoId) => getCryptoData(cryptoId))
+      cryptoIdsArr.map((cryptoId) => getCryptoData(cryptoId.id))
     );
-    createRows(cryptoDataArr);
+    const dataWithQuantity = cryptoDataArr.map((crypto) => ({
+      quantity: cryptoIdsArr.find((cryptoId) => cryptoId.id === crypto.id)
+        .quantity,
+      ...crypto,
+    }));
+    createRows(dataWithQuantity);
     setIsDataLoading(false);
   };
 
   useEffect(() => {
     if (availableCrypto.length > 0) {
       setIsDataLoading(true);
-      const cryptoIdsArr = availableCrypto.map(
-        (crypto) => crypto.purchasedCryptoId
-      );
+      const cryptoIdsArr = availableCrypto.map((crypto) => ({
+        id: crypto.purchasedCryptoId,
+        quantity: crypto.quantity,
+      }));
       getCryptoDataArr(cryptoIdsArr);
     }
   }, [availableCrypto]);
@@ -114,6 +130,8 @@ const CryptoPricesTable = ({ availableCrypto }) => {
               <StyledTableCell align="right">Cena</StyledTableCell>
               <StyledTableCell align="right">24h</StyledTableCell>
               <StyledTableCell align="right">7d</StyledTableCell>
+              <StyledTableCell align="right">Ilość</StyledTableCell>
+              <StyledTableCell align="right">Razem</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -149,6 +167,10 @@ const CryptoPricesTable = ({ availableCrypto }) => {
                 >
                   {row.priceChange7d}
                   {row.priceChange7d ? " %" : ""}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.quantity}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {(row.quantity * row.currentPrice).toFixed(2)} $
                 </StyledTableCell>
               </StyledTableRow>
             ))}
