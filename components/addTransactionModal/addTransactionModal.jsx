@@ -3,7 +3,7 @@ import styles from "./addTransactionModal.style";
 import scssStyles from "./addTransactionModal.module.scss";
 import Modal from "react-modal";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { TextField } from "@material-ui/core";
+import { makeStyles, TextField } from "@material-ui/core";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -18,9 +18,23 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const useStyles = makeStyles((theme) => ({
+  inputRoot: {
+    color: "white",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+  },
+}));
+
 const filterOptions = createFilterOptions({
   limit: 100,
-  // matchFrom: "start",
 });
 
 const parseToNumber = (text) => {
@@ -29,6 +43,7 @@ const parseToNumber = (text) => {
 };
 
 const AddTransactionModal = ({ isOpen, setIsOpen }) => {
+  const classes = useStyles();
   // const profileId = JSON.parse(localStorage.getItem("profileInfo")).id;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [purchasedCrypto, setPurchasedCrypto] = useState("");
@@ -124,6 +139,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
         )}
         <div className={scssStyles.fullWidth}>
           <Autocomplete
+            classes={classes}
             style={{ width: "100%" }}
             // value={purchasedCrypto}
             onChange={(_, newValue) => setPurchasedCrypto(newValue)}
@@ -145,8 +161,13 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
               value={purchasedPrice}
               onChange={(event) => setPurchasedPrice(event.target.value)}
               id="filled-basic"
-              label="Za ile kupiłeś"
+              label="Cena w momencie kupna"
               type="number"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">$</InputAdornment>
@@ -161,6 +182,11 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
               id="filled-basic"
               label="Ile kupiłeś"
               type="number"
+              inputProps={{
+                style: {
+                  color: "white",
+                },
+              }}
             />
           </div>
         </div>
@@ -176,6 +202,11 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
               onChange={handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change date",
+              }}
+              inputProps={{
+                style: {
+                  color: "white",
+                },
               }}
             />
           </MuiPickersUtilsProvider>
