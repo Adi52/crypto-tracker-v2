@@ -1,0 +1,16 @@
+@import 'styles/main';
+
+.container {
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 0 5px;
+
+  &:hover {
+    background-color: lighten($background, 10%);
+  }
+}

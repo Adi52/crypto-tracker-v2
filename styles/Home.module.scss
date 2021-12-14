@@ -1,0 +1,39 @@
+@import "styles/main";
+
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: $background;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .logo {
+    margin: 60px 0;
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      color: white;
+      font-size: 64px;
+    }
+  }
+
+  .profileRows {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+
+    .addIcon {
+      cursor: pointer;
+      margin: 25px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: $background-secondary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
