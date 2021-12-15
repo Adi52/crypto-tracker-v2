@@ -6,6 +6,7 @@ import TransactionsTable from "../components/transactionsTable/transactionsTable
 import TransparentButton from "../components/buttons/transparentButton/transparentButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { getSession } from "next-auth/react";
+import prisma from "../prisma/prisma";
 
 const TransactionsPage = ({ data }) => {
   const router = useRouter();

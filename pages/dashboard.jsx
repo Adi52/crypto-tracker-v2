@@ -13,6 +13,7 @@ import HistoryIcon from "@material-ui/icons/History";
 import CachedIcon from "@material-ui/icons/Cached";
 import RefreshIndicator from "../components/refreshIndicator/refreshIndicator";
 import { getSession, useSession } from "next-auth/react";
+import prisma from "../prisma/prisma";
 
 const DashboardPage = ({ data }) => {
   const router = useRouter();
