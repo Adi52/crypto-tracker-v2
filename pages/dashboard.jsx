@@ -67,6 +67,7 @@ const DashboardPage = ({ data }) => {
       <AddTransactionModal
         isOpen={addTransactionModalIsOpen}
         setIsOpen={setAddTransactionModalIsOpen}
+        handleRefresh={fetchPortfolioData}
       />
       <ToastContainer
         position="bottom-right"

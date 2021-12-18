@@ -42,9 +42,8 @@ const parseToNumber = (text) => {
   return parseFloat(formattedText);
 };
 
-const AddTransactionModal = ({ isOpen, setIsOpen }) => {
+const AddTransactionModal = ({ isOpen, setIsOpen, handleRefresh }) => {
   const classes = useStyles();
-  // const profileId = JSON.parse(localStorage.getItem("profileInfo")).id;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [purchasedCrypto, setPurchasedCrypto] = useState("");
   const [purchasedPrice, setPurchasedPrice] = useState("");
@@ -108,6 +107,7 @@ const AddTransactionModal = ({ isOpen, setIsOpen }) => {
       );
     }
     setIsSubmitting(false);
+    handleRefresh();
   };
 
   const handleAddTransaction = () => {
