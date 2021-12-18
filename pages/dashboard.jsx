@@ -23,6 +23,7 @@ const DashboardPage = ({ data }) => {
   const [howMuchInvested, setHowMuchInvested] = useState(data?.moneyInvested);
   const [portfolioPrice, setPortfolioPrice] = useState(0);
   const [profit, setProfit] = useState();
+  const [userData, setUserData] = useState(data);
 
   const [addTransactionModalIsOpen, setAddTransactionModalIsOpen] =
     useState(false);
@@ -35,6 +36,14 @@ const DashboardPage = ({ data }) => {
     setProfit(allProfit);
     setHowMuchInvested(moneyInvested);
     setPortfolioPrice(portfolioPrice);
+    setIsRefreshing(false);
+  };
+
+  const fetchUserData = async () => {
+    setIsRefreshing(true);
+    const userDataRes = await axios.get("/api/user-data");
+    const { data } = userDataRes.data;
+    setUserData(data);
     setIsRefreshing(false);
   };
 
@@ -63,11 +72,14 @@ const DashboardPage = ({ data }) => {
         allProfit={profit}
         isLoading={isRefreshing}
       />
-      <CryptoPricesTable availableCrypto={data.availableCrypto} />
+      <CryptoPricesTable availableCrypto={userData.availableCrypto} />
       <AddTransactionModal
         isOpen={addTransactionModalIsOpen}
         setIsOpen={setAddTransactionModalIsOpen}
-        handleRefresh={fetchPortfolioData}
+        handleRefresh={() => {
+          fetchPortfolioData();
+          fetchUserData();
+        }}
       />
       <ToastContainer
         position="bottom-right"
