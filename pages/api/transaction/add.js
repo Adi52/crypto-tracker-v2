@@ -25,6 +25,7 @@ export default async (req, res) => {
       const availableCrypto = await prisma.availableCrypto.findFirst({
         where: {
           purchasedCryptoId,
+          userId: foundUser.id,
         },
       });
 
